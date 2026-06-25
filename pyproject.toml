@@ -1,0 +1,15 @@
+[project]
+name = "texas-poker"
+version = "1.0.0"
+description = "Texas Hold'em Poker game built with Flet"
+requires-python = ">=3.10"
+keywords = ["poker", "texas-holdem", "flet", "game"]
+authors = [{ name = "Flet user", email = "hello@example.com" }]
+dependencies = [
+    "flet",
+]
+
+[tool.flet]
+org = "dev.flet"
+company = "Flet"
+copyright = "Copyright (C) 2026 by Flet"
