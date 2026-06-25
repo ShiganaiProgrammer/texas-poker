@@ -9,3 +9,7 @@ dist/
 *.egg-info/
 *.egg
 .DS_Store
+node_modules/
+package.json
+package-lock.json
+test_card.png
