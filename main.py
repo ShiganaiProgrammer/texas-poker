@@ -98,6 +98,22 @@ def App():
         set_counter(counter + 1)
         play_sound(page, "/sounds/se_card.mp3")
 
+    def handle_keyboard(e):
+        key = e.key.lower()
+        if key == "enter" and g.phase == "showdown":
+            handle_next_hand(e)
+            return
+        if not human_turn or g.phase in ("idle", "showdown"):
+            return
+        if key == "a":
+            handle_action("fold")
+        elif key == "s":
+            handle_action("call")
+        elif key == "d":
+            handle_action("raise", g.current_bet + g.big_blind * 2)
+
+    page.on_keyboard_event = handle_keyboard
+
     def handle_action(action, raise_amt=0):
         g = game
         prev_phase = g.phase
@@ -123,9 +139,9 @@ def App():
     ]
     if show:
         buttons += [
-            ft.Button("フォールド", on_click=lambda e: handle_action("fold"), disabled=not human_turn),
-            ft.Button("チェック" if call_cost == 0 else f"コール ${call_cost}", on_click=lambda e: handle_action("call"), disabled=not human_turn),
-            ft.Button(f"レイズ ${g.big_blind * 2}", on_click=lambda e: handle_action("raise", g.current_bet + g.big_blind * 2), disabled=not human_turn),
+            ft.Button("[A] フォールド", on_click=lambda e: handle_action("fold"), disabled=not human_turn),
+            ft.Button("[S] チェック" if call_cost == 0 else f"[S] コール ${call_cost}", on_click=lambda e: handle_action("call"), disabled=not human_turn),
+            ft.Button(f"[D] レイズ ${g.big_blind * 2}", on_click=lambda e: handle_action("raise", g.current_bet + g.big_blind * 2), disabled=not human_turn),
         ]
 
     result_info = None
@@ -141,7 +157,7 @@ def App():
                             color=ft.Colors.WHITE, size=16, weight=ft.FontWeight.BOLD),
                     ft.Text(g.message, color=ft.Colors.WHITE, size=11),
                 ]),
-                ft.Button("次へ", on_click=handle_next_hand),
+                ft.Button("[Enter] 次へ", on_click=handle_next_hand),
             ]),
         )
 
