@@ -7,8 +7,7 @@ CARD_H = 114
 
 def make_card_img(web):
     def card_img(rank, suit, face_up=True):
-        ext = "png" if web else "svg"
-        src = f"/images/{rank}_{suit}.{ext}" if face_up else "/images/card_back.png"
+        src = f"/images/{rank}_{suit}.svg" if face_up else "/images/card_back.png"
         return ft.Container(
             width=CARD_W, height=CARD_H,
             content=ft.Image(src=src),
